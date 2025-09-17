@@ -1,0 +1,9 @@
+{
+    "repo-dir": "cd path",
+    "repo-url": "giturl",
+    "ingore": ["file.md"],
+    "output-path": "",
+    "template": "",
+    "release_notes-output-path": "",
+    "release_notes_template": ""
+}
