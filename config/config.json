@@ -1,7 +1,13 @@
 {
-    "repo_dir": "./",
-    "repo_url": "giturl",
-    "ingore_paths": ["__pycache__", "config", "templates", "requirements.txt"],
+    "repo_dir": "/Users/ignaciogarciaravlic/go/src/github.com/Bancar/uala-profilementfraud",
+    "ingore_paths": [
+        ".github",
+        "config",
+        "terraforn",
+        "terragrunt",
+        ".gitignore"
+    ],
+    "code_extensions": ["md", "go", "py", "json"],
 
     "output_path": "",
     "template_path": "./templates/template1.txt",
