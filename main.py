@@ -1,5 +1,10 @@
+import settings
+
+
 def main():
     # 1 load config file
+    json_settings = settings.load_settings()
+    print(json_settings)
 
     # 2 download repo (opt)
     # 3 read repo

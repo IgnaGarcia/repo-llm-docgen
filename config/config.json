@@ -1,9 +1,13 @@
 {
-    "repo-dir": "cd path",
-    "repo-url": "giturl",
-    "ingore": ["file.md"],
-    "output-path": "",
-    "template": "",
-    "release_notes-output-path": "",
-    "release_notes_template": ""
+    "repo_dir": "cd path",
+    "repo_url": "giturl",
+    "ingore_paths": ["file.md"],
+
+    "output_path": "",
+    "template_path": "./templates/template1.txt",
+
+    "rn_output_path": "",
+    "rn_template_path": "./templates/rn_template.txt",
+
+    "model_name": "gpt-4"
 }
