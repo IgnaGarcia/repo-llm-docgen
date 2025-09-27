@@ -1,4 +1,5 @@
 import settings
+import repo_reader
 
 
 def main():
@@ -7,7 +8,11 @@ def main():
     print(json_settings)
 
     # 2 download repo (opt)
+    path = json_settings["repo_dir"]
+
     # 3 read repo
+    project_structure = repo_reader.get_project_structure(json_settings, path)
+    print(project_structure)
 
     # 4 context retrieval
 

@@ -1,7 +1,7 @@
 {
-    "repo_dir": "cd path",
+    "repo_dir": "./",
     "repo_url": "giturl",
-    "ingore_paths": ["file.md"],
+    "ingore_paths": ["__pycache__", "config", "templates", "requirements.txt"],
 
     "output_path": "",
     "template_path": "./templates/template1.txt",
