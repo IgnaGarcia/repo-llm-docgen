@@ -1,4 +1,5 @@
 import git_service
+from llm_service import LLMManager
 import prompter
 from settings import load_settings
 import repo_reader
@@ -58,7 +59,8 @@ def main():
         )
 
     # send prompt to LLM
-    doc = "General Documentation"
+    llm_manager = LLMManager(api_key=json_settings["model_api_key"])
+    doc = llm_manager.process_request(prompt)
 
     if DEBUG:
         save_debug(project_structure, readme, repo_info, diffs, prompt)

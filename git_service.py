@@ -25,6 +25,7 @@ def repo_info(settings, path):
 
     context = {}
     context["name"] = Path(repo.working_dir).name
+    context["path"] = path
     context["remotes"] = []
     for remote in repo.remotes:
         context["remotes"].append(
