@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 
 def build_node(name, node_type, content=None):
@@ -25,8 +26,7 @@ def get_project_structure(settings, path):
 
     def walk_dir(root, content):
         for name in sorted(os.listdir(root)):
-            if name.startswith(".") or name in settings.get("ingore_paths", []):
-                # TODO ignore basado en .gitignore -- descartado
+            if should_ignore(name, settings):
                 continue
 
             path = os.path.join(root, name)
@@ -35,9 +35,7 @@ def get_project_structure(settings, path):
                 sub = build_node(name, "directory", [])
                 content.append(sub)
                 walk_dir(path, sub["content"])
-            elif os.path.isfile(path) and name.split(".")[-1] in settings.get(
-                "code_extensions", []
-            ):
+            elif os.path.isfile(path):
                 sub = build_node(name, "file", "")
                 content.append(sub)
 
@@ -49,3 +47,23 @@ def get_project_structure(settings, path):
 def get_file_content(file_path):
     with open(file_path, "r") as file:
         return file.read()
+
+
+def get_readme_content(repo_path):
+    readme_names = ["README.md", "readme.md", "README.txt", "README"]
+
+    for name in readme_names:
+        readme_path = Path(repo_path) / name
+        if readme_path.exists():
+            return get_file_content(readme_path)
+
+    return "Sin README disponible"
+
+
+def should_ignore(name, settings):
+    if name.startswith(".") or name in settings.get("ingore_paths", []):
+        # ignore basado en .gitignore -- FUERA DE ALCANCE
+        return True
+    if name.split(".")[-1] not in settings.get("code_extensions", []):
+        return True
+    return False

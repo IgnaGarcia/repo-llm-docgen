@@ -1,5 +1,6 @@
 {
     "repo_dir": "/Users/ignaciogarciaravlic/go/src/github.com/Bancar/uala-profilementfraud",
+    "base_branch": "main",
     "ingore_paths": [
         ".github",
         "config",
