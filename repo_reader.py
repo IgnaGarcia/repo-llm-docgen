@@ -2,45 +2,21 @@ import os
 from pathlib import Path
 
 
-def build_node(name, node_type, content=None):
-    node = {
-        "type": node_type,
-        "name": name,
-    }
-    if content is not None:
-        node["content"] = content
-    return node
+def get_project_structure(settings, base_path):
+    project_structure = []
 
-
-def clear_empty_dirs(node):
-    if node["type"] == "directory":
-        node["content"] = [clear_empty_dirs(child) for child in node["content"]]
-        node["content"] = [child for child in node["content"] if child is not None]
-        if not node["content"]:
-            return None
-    return node
-
-
-def get_project_structure(settings, path):
-    project_structure = build_node(path, "directory", [])
-
-    def walk_dir(root, content):
+    def walk_dir(root):
         for name in sorted(os.listdir(root)):
-            if should_ignore(name, settings):
+            path = os.path.join(root, name)
+            if should_ignore(path, name, settings):
                 continue
 
-            path = os.path.join(root, name)
-
             if os.path.isdir(path):
-                sub = build_node(name, "directory", [])
-                content.append(sub)
-                walk_dir(path, sub["content"])
+                walk_dir(path)
             elif os.path.isfile(path):
-                sub = build_node(name, "file", "")
-                content.append(sub)
+                project_structure.append(path.replace(base_path + "/", ""))
 
-    walk_dir(path, project_structure["content"])
-    clear_empty_dirs(project_structure)
+    walk_dir(base_path)
     return project_structure
 
 
@@ -55,15 +31,17 @@ def get_readme_content(repo_path):
     for name in readme_names:
         readme_path = Path(repo_path) / name
         if readme_path.exists():
-            return get_file_content(readme_path)
+            return get_file_content(readme_path)[:10240]
 
     return "Sin README disponible"
 
 
-def should_ignore(name, settings):
+def should_ignore(path, name, settings):
     if name.startswith(".") or name in settings.get("ingore_paths", []):
         # ignore basado en .gitignore -- FUERA DE ALCANCE
         return True
-    if name.split(".")[-1] not in settings.get("code_extensions", []):
+    if not os.path.isdir(path) and name.split(".")[-1] not in settings.get(
+        "code_extensions", []
+    ):
         return True
     return False

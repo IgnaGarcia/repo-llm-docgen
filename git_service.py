@@ -33,35 +33,7 @@ def repo_info(settings, path):
                 "url": remote.url,
             }
         )
-    context["contributors"] = get_last_contributors(repo, base)
-
-    context["latest_tags"] = []
-    for tag in reversed(repo.tags):
-        if tag.object.type != "tag":
-            continue
-        context["latest_tags"].append(
-            {
-                "name": tag.name,
-                "commit": tag.commit.__str__()[0:7],
-                "date": tag.commit.committed_datetime.strftime("%Y-%m-%d"),
-                "tagger": {
-                    "name": tag.tag.tagger.name,
-                    "email": tag.tag.tagger.email,
-                },
-                "author": {
-                    "name": tag.commit.author.name,
-                    "email": tag.commit.author.email,
-                },
-            }
-        )
-        if len(context["latest_tags"]) >= 5:
-            break
-
-    description_path = Path(repo.git_dir) / "description"
-    if description_path.exists():
-        context["about"] = description_path.read_text(encoding="utf-8").strip()
-    else:
-        context["about"] = "Sin descripción disponible"
+    context["contributors"] = get_last_contributors(repo, base)[:5]
 
     return context
 
@@ -104,9 +76,24 @@ def get_diff(settings, path):
     changed_files = []
     for diff in diffs:
         if diff.change_type in ["A", "M"]:
-            if repo_reader.should_ignore(diff.a_path.split("/")[-1], settings):
+            if repo_reader.should_ignore(
+                diff.a_path, diff.a_path.split("/")[-1], settings
+            ):
                 continue
             is_new_file = diff.change_type == "A"
+
+            if is_new_file:
+                changed_files.append(
+                    {
+                        "file_path": diff.a_path,
+                        "is_new_file": is_new_file,
+                        "new_lines": diff.b_blob.data_stream.read().decode(
+                            "utf-8", errors="ignore"
+                        ),
+                    }
+                )
+                continue
+
             changes = repo.git.diff(base, diff.a_path).splitlines()
 
             changed_lines = {"added": [], "removed": []}
@@ -130,20 +117,10 @@ def get_diff(settings, path):
                     line_number_current += 1
                     line_number_change += 1
 
-            oldLines = ""
-            if diff.a_blob is not None and diff.a_blob.data_stream is not None:
-                oldLines = diff.a_blob.data_stream.read().decode(
-                    "utf-8", errors="ignore"
-                )
-
             changed_files.append(
                 {
                     "file_path": diff.a_path,
                     "is_new_file": is_new_file,
-                    "old_lines": oldLines,
-                    "new_lines": diff.b_blob.data_stream.read().decode(
-                        "utf-8", errors="ignore"
-                    ),
                     "changed_lines": changed_lines,
                 }
             )

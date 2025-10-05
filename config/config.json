@@ -8,12 +8,12 @@
         "terragrunt",
         ".gitignore"
     ],
-    "code_extensions": ["md", "go", "py", "json"],
+    "code_extensions": ["md", "go", "py", "java"],
 
-    "output_path": "",
+    "output_language": "Spanish",
+    "output_path": "./out/documentation.md",
     "template_path": "./templates/template1.txt",
-
-    "rn_output_path": "",
+    "rn_output_path": "./out/release_notes.md",
     "rn_template_path": "./templates/rn_template.txt",
 
     "model_name": "gpt-4"

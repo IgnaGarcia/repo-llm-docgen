@@ -1,4 +1,5 @@
 import git_service
+import prompter
 from settings import load_settings
 import repo_reader
 import json
@@ -20,44 +21,64 @@ def main():
 
     # should update documentation? -- FUERA DE ALCANCE
 
-    # 7 generate documentation
-    # 7.1 set info to llm
-    # 7.2 set template
-    # 7.3 request new documentation
-    # 7.4 save documentation
-
     # should generate release notes?
     generate_release_notes = False
     if len(sys.argv) > 1:
         first_arg = sys.argv[1]
         generate_release_notes = first_arg == "-r" or first_arg == "--release-notes"
 
-    diffs = []
+    doc = ""
+    output_path = ""
+    # connect LLM
     if generate_release_notes:
+        # GENERATE RELEASE NOTES
         diffs = git_service.get_diff(json_settings, path)
-    # 5.2 set info to llm
-    # 5.4 set release notes template
+        output_path = json_settings["rn_output_path"]
+        template = repo_reader.get_file_content(json_settings["rn_template_path"])
 
-    # load base promt
-    # load info to llm
-    # load release notes template
-    # request documentation
-    # save documentation
+        prompt = prompter.generate_release_notes_prompt(
+            project_structure,
+            repo_info,
+            template,
+            json_settings["output_language"],
+            diffs,
+        )
+    else:
+        # GENERATE GENERAL DOCUMENTATION
+        print("Skipping release notes generation")
+        output_path = json_settings["output_path"]
+        template = repo_reader.get_file_content(json_settings["template_path"])
+
+        prompt = prompter.generate_doc_prompt(
+            project_structure,
+            repo_info,
+            template,
+            json_settings["output_language"],
+            readme,
+        )
+
+    # send prompt to LLM
+    doc = "General Documentation"
 
     if DEBUG:
-        save_debug(project_structure, readme, repo_info, diffs)
-    print("main ok")
+        save_debug(project_structure, readme, repo_info, diffs, prompt)
+
+    # save documentation to file
+    with open(output_path, "w", encoding="utf-8") as file:
+        file.write(doc)
 
 
-def save_debug(project_structure, readme, repo_info, diffs):
-    with open("out/repo_struct.json", "w", encoding="utf-8") as file:
+def save_debug(project_structure, readme, repo_info, diffs, prompt):
+    with open("out/tmp/repo_struct.json", "w", encoding="utf-8") as file:
         file.write(json.dumps(project_structure))
-    with open("out/readme.md", "w", encoding="utf-8") as file:
+    with open("out/tmp/readme.md", "w", encoding="utf-8") as file:
         file.write(readme)
-    with open("out/tmp.json", "w", encoding="utf-8") as file:
+    with open("out/tmp/repo_info.json", "w", encoding="utf-8") as file:
         file.write(json.dumps(repo_info))
-    with open("out/diffs.json", "w", encoding="utf-8") as file:
+    with open("out/tmp/diffs.json", "w", encoding="utf-8") as file:
         file.write(json.dumps(diffs))
+    with open("out/tmp/prompt.md", "w", encoding="utf-8") as file:
+        file.write(prompt)
 
 
 main()
