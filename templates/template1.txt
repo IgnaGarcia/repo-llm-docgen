@@ -1,10 +1,12 @@
 # Title
-description
+eye-catching headline and a high-level summary
+
+## Description
+complete description of project, with a functional perspective
 
 ## Compontents
 index of components
 
 for each component do:
 ### Component name
-component description
-tecnical description
+complete description of component, his role, task and goal, with a functional perspective

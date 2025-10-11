@@ -1,0 +1,36 @@
+# Title
+eye-catching headline and a high-level summary
+
+## Description
+complete description of project, with a functional perspective
+
+## Compontents
+index of components
+
+for each component do:
+### Component name
+eye-catching headline and a high-level summary
+
+#### Description
+complete description of component, his role, task and main goal, with a functional perspective
+
+#### Functional Flow
+describe the main steps of component, like validations and requests
+
+#### Interface
+- Input
+describe structure of input and each attribute of this
+with a json example if its possible
+
+- Output(if have)
+describe structure of input and each attribute of this
+with a json example if its possible
+
+#### Components
+for each main component or artifact describe his task, include input and output and related components 
+
+#### Related Resources 
+bullet list of external resourses consumed by the current one, like APIs, databases and more
+
+#### Technology Stack
+bullet list of used technologies like programming language, framework, best practices guidelines used, cloud provider

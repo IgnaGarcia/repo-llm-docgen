@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 
 
 def get_project_structure(settings, base_path):
@@ -20,20 +19,19 @@ def get_project_structure(settings, base_path):
     return project_structure
 
 
+def get_project_content(project_structure, base_path):
+    proj_content = []
+    for name in project_structure:
+        with open(f"{base_path}/{name}", "r", encoding="utf-8") as f:
+            content = f.read()
+        proj_content.append({"file": name, "len": len(content), "raw": content})
+
+    return proj_content
+
+
 def get_file_content(file_path):
     with open(file_path, "r") as file:
         return file.read()
-
-
-def get_readme_content(repo_path):
-    readme_names = ["README.md", "readme.md", "README.txt", "README"]
-
-    for name in readme_names:
-        readme_path = Path(repo_path) / name
-        if readme_path.exists():
-            return get_file_content(readme_path)[:10240]
-
-    return "Sin README disponible"
 
 
 def should_ignore(path, name, settings):

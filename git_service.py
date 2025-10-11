@@ -35,6 +35,11 @@ def repo_info(settings, path):
             }
         )
     context["contributors"] = get_last_contributors(repo, base)[:5]
+    context["last_tag"] = (
+        max(repo.tags, key=lambda t: t.commit.committed_date).name
+        if repo.tags
+        else "N/A"
+    )
 
     return context
 
@@ -72,6 +77,10 @@ def get_diff(settings, path):
             f"Rama activa es la Rama base, omitiendo comparacion: {repo.active_branch.name}"
         )
         return
+
+    unique_authors = set()
+    for commit in repo.iter_commits(f"{base}..{repo.active_branch.name}"):
+        unique_authors.add(commit.author.name)
 
     diffs = repo.index.diff(base, R=True)
     changed_files = []
@@ -126,4 +135,4 @@ def get_diff(settings, path):
                 }
             )
 
-    return changed_files
+    return {"changes": changed_files, "contributtors": list(unique_authors)}

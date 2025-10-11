@@ -15,7 +15,9 @@ def load_settings():
     json_content["rn_template_content"] = get_file_content(
         json_content["rn_template_path"]
     )
-    json_content["template_content"] = get_file_content(json_content["template_path"])
+    json_content["template_content"] = get_file_content(
+        json_content["artifacts"][0]["template_path"]
+    )
 
     json_content["model_api_key"] = os.getenv("API_KEY")
     return json_content
