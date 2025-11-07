@@ -1,37 +1,5 @@
 {
     "repo_dir": "/Users/ignaciogarciaravlic/go/src/github.com/Bancar/uala-profilementfraud",
-    "artifacts": [
-        {
-            "relative_path": "./",
-            "out_name": "doc",
-            "template_path": "./templates/template3.txt"
-        },
-        {
-            "relative_path": "./batch/LoadSegmentsProcessor",
-            "out_name": "LoadSegmentsProcessor",
-            "template_path": "./templates/template2.txt"
-        },
-        {
-            "relative_path": "./lambda/go/AccountBlockService",
-            "out_name": "AccountBlock",
-            "template_path": "./templates/template2.txt"
-        },
-        {
-            "relative_path": "./lambda/go/AccountUnblockService",
-            "out_name": "AccountUnblock",
-            "template_path": "./templates/template2.txt"
-        },
-        {
-            "relative_path": "./lambda/go/ExceptedAccountService",
-            "out_name": "ExceptedAccount",
-            "template_path": "./templates/template2.txt"
-        },
-        {
-            "relative_path": "./lambda/go/TxLimitValidatorService",
-            "out_name": "TxLimitValidator",
-            "template_path": "./templates/template2.txt"
-        }
-    ],
     "base_branch": "main",
     "ingore_paths": [
         ".github",
@@ -44,6 +12,7 @@
 
     "output_language": "Spanish",
     "output_path": "./out",
+    "template_path": "./templates/template3.txt",
     "rn_template_path": "./templates/rn_template.txt",
 
     "model_name": "gemini-2.5-flash"

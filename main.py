@@ -68,11 +68,8 @@ def generate_release_notes(json_settings, path, repo_info):
 
 def generate_docs(json_settings, path, project_structure, repo_info):
     output_path = f'{json_settings["output_path"]}/doc.md'
-    template = repo_reader.get_file_content(
-        json_settings["artifacts"][0]["template_path"]
-    )
+    template = repo_reader.get_file_content(json_settings["template_path"])
     """  # TODO
-    project_structure + artifacts
     primero, por cada archivo generar el min_content:
     - dependencies: [listado de dependencias internas, unicamente path relativo]
     - code: [listado de objetos donde se define nombre, tipo y contenido]
@@ -86,7 +83,6 @@ def generate_docs(json_settings, path, project_structure, repo_info):
 
     project_content = repo_reader.get_project_content(project_structure, path)
 
-    # TODO read each artifact and generate each doc
     prompt = prompter.generate_doc_prompt(
         project_content,
         repo_info,
