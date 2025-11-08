@@ -1,4 +1,4 @@
-# Release [INFER VERSION] - [INFER DATE TODAY]
+# Release [INFER VERSION]
 
 ## Contributors
 bullet list of contributors
@@ -9,7 +9,7 @@ eye-catching headline and a high-level summary of the most impactful changes
 ## Changes
 for each change describe with the next structure, sort the changes by type(Feature, Enhancement, Bug Fix, Tests, Other):
 [Type of change]
-- name: 
+- [INFER NAME]: 
 whats changed and impact
 
 Be concise, clear and educational. Update the version number, determining whether the update is a PATCH, MINOR or MAJOR changes

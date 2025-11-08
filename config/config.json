@@ -1,19 +1,24 @@
 {
     "repo_dir": "/Users/ignaciogarciaravlic/go/src/github.com/Bancar/uala-profilementfraud",
     "base_branch": "main",
-    "ingore_paths": [
-        ".github",
-        "config",
-        "terraforn",
-        "terragrunt",
-        ".gitignore"
-    ],
-    "code_extensions": ["md", "go", "py", "java"],
+    "ingore_paths": [".github", "config", ".gitignore"],
+    "code_extensions": ["md", "go", "py", "java", "tf", "hcl"],
 
     "output_language": "Spanish",
     "output_path": "./out",
     "template_path": "./templates/template3.txt",
     "rn_template_path": "./templates/rn_template.txt",
 
-    "model_name": "gemini-2.5-flash"
+    "debug": true,
+    "agents": {
+        "analyzer": {
+            "model": "gemini-2.5-flash-lite"
+        },
+        "synthesizer": {
+            "model": "gemini-2.5-flash"
+        },
+        "documenter": {
+            "model": "gemini-2.5-flash"
+        }
+    }
 }

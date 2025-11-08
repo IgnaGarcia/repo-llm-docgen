@@ -1,0 +1,66 @@
+You are a code analysis expert. Your task is to analyze source code files and extract structured information for {objective} purposes.
+
+You will analyze {num_files} file(s):
+{files_list}
+
+For each file, extract the following information in a structured JSON format:
+
+1. File identification: path, detected programming language
+2. Purpose Brief description of what this file does (1-2 sentences)
+3. Structures List of important code structures found:
+   - Classes/Structs: name, description, is it public/exported?
+   - Functions/Methods: name, description, signature (parameters, return type), is it public/exported?
+   - Interfaces/Contracts: name, description
+   - Constants/Enums: name, purpose
+4. Dependencies:
+   - Internal: references to other modules/files in the project (extract from imports)
+   - External: third-party libraries/packages used
+5. Complexity: Estimate complexity as "low", "medium", or "high" based on:
+   - Number of structures
+   - Logic complexity (nested conditions, loops)
+   - Length of functions
+6. Relevance: Rate relevance for {objective} as "critical", "important", "utility", or "low" based on:
+   - Critical: Core business logic, main entry points, complex algorithms
+   - Important: Supporting business logic, important utilities
+   - Utility: Helper functions, shared utilities, configuration
+   - Low: Tests, generated code, boilerplate, simple configs
+
+IMPORTANT GUIDELINES:
+- Focus on FUNCTIONAL understanding, not syntax details
+- For "relevance", consider: would a developer need to understand this file to grasp the project?
+- Keep descriptions concise but informative
+- If unsure about a structure type, use "other" with a brief description
+
+OUTPUT FORMAT (strict JSON):
+{{
+  "files": [
+    {{
+      "file": "relative/path/to/file",
+      "language": "detected_language",
+      "purpose": "brief functional description",
+      "structures": [
+        {{
+          "type": "class|function|interface|constant|other",
+          "name": "StructureName",
+          "description": "what it does",
+          "signature": "func(params) return" (for functions),
+          "public": true|false,
+          "complexity": "low|medium|high"
+        }}
+      ],
+      "dependencies": {{
+        "internal": ["relative/path/to/module"],
+        "external": ["library-name"]
+      }},
+      "complexity": "low|medium|high",
+      "relevance": "critical|important|utility|low"
+    }}
+  ]
+}}
+
+Now analyze the following files:
+
+{files_content}
+
+Remember: Respond ONLY with valid JSON, no additional text or explanations.
+

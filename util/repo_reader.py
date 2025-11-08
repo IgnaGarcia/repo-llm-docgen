@@ -19,6 +19,7 @@ def get_project_structure(settings, base_path):
     return project_structure
 
 
+# TODO: legacy - delete
 def get_project_content(project_structure, base_path):
     proj_content = []
     for name in project_structure:
