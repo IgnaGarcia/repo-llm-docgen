@@ -61,16 +61,6 @@ class Documenter:
         template,
         language,
     ):
-        """
-        Generate release notes from condensed batches.
-
-        Args:
-            condensed_context: List of condensed batches from Condenser
-            diffs: Git diff information
-            repo_info: Repository metadata
-            template: Release notes template
-            language: Output language
-        """
         context_json = json.dumps(condensed_context, indent=2)
         diffs_json = json.dumps(diffs, indent=2)
         repo_info_str = json.dumps(repo_info, indent=2)

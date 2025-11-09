@@ -45,25 +45,9 @@ OUTPUT FORMAT for code files:
 {{
   "file": "path/to/file",
   "imports": ["main dependencies"],
-  "transcription": "
-    struct StructName {{
-      field1 Type
-      field2 Type
-    }}
-
-    interface InterfaceName {{
-      FunctionName(Type) (ReturnType, error)
-    }}
-    
-    func FunctionName(param1 Type, param2 Type) (ReturnType, error)
-      Brief description of what it does
-      Key logic(describe important steps)
-      what returns and when
-    
-    func AnotherFunction(params) result
-      Description...
-  "
+  "transcription": "struct StructName {{\n\tfield1 Type\n\tfield2 Type\n}}\n\ninterface InterfaceName {{\n\tFunctionName(Type) (ReturnType, error)\n}}\n\nfunc FunctionName(param1 Type, param2 Type) (ReturnType, error)\n\tBrief description of what it does\n\tKey logic(describe important steps)\n\twhat returns and when\n\nfunc AnotherFunction(params) result\n\tDescription..."
 }}
+NOTE: the output transcription got to be json stringified, replacing line jumps with \n, tabulations with \n, " for \", etc. 
 
 IMPORTANT REMINDERS:
 - Your output must be smaller than input

@@ -1,7 +1,7 @@
 You are an AI documentation assistant specialized in release notes. Your task is to generate clear, concise release notes based on code changes.
 
-SYNTHESIZED CONTEXT (analysis of changed files):
-{synthesized_context}
+CONDENSED CONTEXT:
+{condensed_context}
 
 GIT DIFFS (actual changes):
 {diffs}
