@@ -1,78 +1,94 @@
 import json
 import logging
-from agents import Analyzer, Synthesizer, Documenter
+from service import Batcher
+from agents import Condenser, Documenter
 
 
 class Orchestrator:
-
     def __init__(self, settings):
         self.settings = settings
-        self.debug = settings.get("debug", False)
+        self.debug = settings.get("debug", True)
 
-        self.analyzer = Analyzer(settings)
-        self.synthesizer = Synthesizer(settings)
+        self.batcher = Batcher(75000)
+        self.condenser = Condenser(settings)
         self.documenter = Documenter(settings)
 
     def generate_documentation(self, project_structure, base_path, repo_info):
-        logging.info(f"Generating documentation for {len(project_structure)} files")
+        logging.debug(f"Batching files...")
+        batches = self.batcher.create_batches(project_structure, base_path)
 
-        logging.debug(f"Analyzing files...")
-        analyzed_files = self.analyzer.analyze_files(
-            project_structure, base_path, "documentation"
-        )
-        logging.debug(f"Analyzed {len(analyzed_files)} files")
         if self.debug:
-            self._save_debug("analyzed_files.json", analyzed_files)
+            self._save_debug(
+                "/batches.json",
+                [
+                    {
+                        "path_prefix": b["path_prefix"],
+                        "files": b["files"],
+                        "total_chars": b["total_chars"],
+                    }
+                    for b in batches
+                ],
+            )
 
-        logging.debug(f"Synthesizing context...")
-        synthesized_context = self.synthesizer.synthesize(
-            analyzed_files,
-            self.settings["template_content"],
-            "documentation",
+        logging.debug(f"Condensing batches...")
+        condensed_batches = self.condenser.condense_batches(
+            batches=batches,
+            template=self.settings["template_content"],
+            objective="documentation",
         )
-        logging.debug(f"Synthesized context")
+
         if self.debug:
-            self._save_debug("synthesized_context.json", synthesized_context)
+            self._save_debug("condensed_batches.json", condensed_batches)
 
         logging.debug(f"Generating documentation...")
         documentation = self.documenter.generate_doc(
-            synthesized_context,
+            condensed_batches,
             repo_info,
             self.settings["template_content"],
             self.settings["output_language"],
         )
+
         logging.debug(f"Generated documentation")
         return documentation
 
     def generate_release_notes(self, diffs, base_path, repo_info):
-        logging.info(f"Generating release notes for {len(diffs)} changes")
-
         logging.debug(f"Extracting modified files...")
         modified_files = self._extract_modified_files(diffs)
         logging.debug(f"Extracted {len(modified_files)} modified files")
 
-        logging.debug(f"Analyzing files...")
-        analyzed_files = self.analyzer.analyze_files(
-            modified_files, base_path, "release_notes"
-        )
-        logging.debug(f"Analyzed {len(analyzed_files)} files")
-        if self.debug:
-            self._save_debug("analyzed_files_rn.json", analyzed_files)
+        if not modified_files:
+            logging.warning("No modified files found")
+            return "# Release Notes\n\nNo changes detected."
 
-        logging.debug(f"Synthesizing context...")
-        synthesized_context = self.synthesizer.synthesize(
-            analyzed_files,
+        logging.debug(f"Batching modified files...")
+        batches = self.batcher.create_batches(modified_files, base_path)
+
+        if self.debug:
+            self._save_debug(
+                "batches_rn.json",
+                [
+                    {
+                        "path_prefix": b["path_prefix"],
+                        "files": b["files"],
+                        "total_chars": b["total_chars"],
+                    }
+                    for b in batches
+                ],
+            )
+
+        logging.debug(f"Condensing batches...")
+        condensed_batches = self.condenser.condense_batches(
+            batches,
             self.settings["rn_template_content"],
             "release_notes",
-            diffs,
         )
-        logging.debug(f"Synthesized context")
+
         if self.debug:
-            self._save_debug("synthesized_context_rn.json", synthesized_context)
+            self._save_debug("condensed_batches_rn.json", condensed_batches)
 
         logging.debug(f"Generating release notes...")
         release_notes = self.documenter.generate_release_notes(
-            synthesized_context,
+            condensed_batches,
             diffs,
             repo_info,
             self.settings["rn_template_content"],

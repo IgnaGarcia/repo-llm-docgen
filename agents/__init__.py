@@ -1,5 +1,4 @@
-from .analyzer import Analyzer
-from .synthesizer import Synthesizer
+from .condenser import Condenser
 from .documenter import Documenter
 
-__all__ = ["Analyzer", "Synthesizer", "Documenter"]
+__all__ = ["Condenser", "Documenter"]
