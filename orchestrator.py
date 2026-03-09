@@ -1,21 +1,27 @@
 import json
 import logging
+from datetime import datetime
+
 from service import Batcher
+from service import Extractor
 from agents import Condenser, Documenter
 
 
 class Orchestrator:
     def __init__(self, settings):
         self.settings = settings
+        self.base_path = settings.get("repo_dir", "./")
         self.debug = settings.get("debug", True)
 
         self.batcher = Batcher(75000)
+        self.extractor = Extractor(settings)
         self.condenser = Condenser(settings)
         self.documenter = Documenter(settings)
 
-    def generate_documentation(self, project_structure, base_path, repo_info):
-        logging.debug(f"Batching files...")
-        batches = self.batcher.create_batches(project_structure, base_path)
+    def generate_documentation(self):
+        project_structure, repo_info = self.extractor.get_documentation_context()
+        logging.debug("Batching files...")
+        batches = self.batcher.create_batches(project_structure, self.base_path)
 
         if self.debug:
             self._save_debug(
@@ -48,20 +54,25 @@ class Orchestrator:
             self.settings["output_language"],
         )
 
-        logging.debug(f"Generated documentation")
-        return documentation
+        logging.debug("Generated documentation")
+        self._write_file("doc", documentation)
+        return
 
-    def generate_release_notes(self, diffs, base_path, repo_info):
-        logging.debug(f"Extracting modified files...")
+    def generate_release_notes(self):
+        repo_info, diffs = self.extractor.get_release_notes_context()
+        logging.debug("Extracting modified files...")
         modified_files = self._extract_modified_files(diffs)
         logging.debug(f"Extracted {len(modified_files)} modified files")
 
         if not modified_files:
             logging.warning("No modified files found")
-            return "# Release Notes\n\nNo changes detected."
+            self._write_file(
+                f"RN-{datetime.now().date()}", "# Release Notes\n\nNo changes detected."
+            )
+            return
 
         logging.debug(f"Batching modified files...")
-        batches = self.batcher.create_batches(modified_files, base_path)
+        batches = self.batcher.create_batches(modified_files, self.base_path)
 
         if self.debug:
             self._save_debug(
@@ -94,8 +105,20 @@ class Orchestrator:
             self.settings["rn_template_content"],
             self.settings["output_language"],
         )
-        logging.debug(f"Generated release notes")
-        return release_notes
+        logging.debug("Generated release notes")
+        self._write_file(f"RN-{datetime.now().date()}", release_notes)
+
+    def _write_file(self, filename, content):
+        output_path = self._build_output_path(filename)
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(content)
+
+    def _build_output_path(self, filename_without_ext):
+        out_dir = self.settings.get("output_path", "./out")
+        ext = self.settings.get("output_extension", "md")
+        if not ext.startswith("."):
+            ext = "." + ext
+        return f"{out_dir}/{filename_without_ext}{ext}"
 
     def _extract_modified_files(self, diffs):
         modified_files = []

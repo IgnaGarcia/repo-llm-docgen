@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentación técnica</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; line-height: 1.6; }
+    h1 { border-bottom: 2px solid #333; padding-bottom: 0.5rem; }
+    h2 { color: #444; margin-top: 2rem; }
+    h3 { color: #555; }
+    h4 { color: #666; }
+    ul { margin: 0.5rem 0; }
+    code, pre { background: #f4f4f4; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    pre { padding: 1rem; overflow-x: auto; }
+    .summary { font-size: 1.1rem; color: #333; }
+  </style>
+</head>
+<body>
+
+<h1>Title</h1>
+<p class="summary">Eye-catching headline and a high-level summary of the project.</p>
+
+<h2>Description</h2>
+<p>Complete description of the project, with a functional perspective.</p>
+
+<h2>Components</h2>
+<p>Index of components.</p>
+
+<!-- For each component, repeat the following block -->
+
+<h3>Component name</h3>
+<p class="summary">Eye-catching headline and a high-level summary of the component.</p>
+
+<h4>Description</h4>
+<p>Complete description of the component: its role, task and main goal, with a functional perspective.</p>
+
+<h4>Functional Flow</h4>
+<p>Describe the main steps of the component (validations, requests, etc.).</p>
+
+<h4>Interface</h4>
+<p><strong>Input:</strong> Describe structure of input and each attribute. Include a JSON example if possible.</p>
+<p><strong>Output (if any):</strong> Describe structure of output and each attribute. Include a JSON example if possible.</p>
+
+<h4>Components</h4>
+<p>For each main sub-component or artifact describe its task, include input/output and related components.</p>
+
+<h4>Related Resources</h4>
+<ul>
+  <li>Bullet list of external resources: APIs, databases, etc.</li>
+</ul>
+
+<h4>Technology Stack</h4>
+<ul>
+  <li>Programming language, framework, guidelines, cloud provider.</li>
+</ul>
+
+</body>
+</html>
