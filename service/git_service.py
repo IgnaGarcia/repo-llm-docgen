@@ -3,7 +3,7 @@ import re
 import git
 from pathlib import Path
 
-from util import repo_reader
+from util import file_reader
 
 
 class GitService:
@@ -76,7 +76,7 @@ class GitService:
         changed_files = []
         for diff in diffs:
             if diff.change_type in ["A", "M"]:
-                if repo_reader.should_ignore(
+                if file_reader.should_ignore(
                     diff.a_path, diff.a_path.split("/")[-1], settings
                 ):
                     continue

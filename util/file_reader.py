@@ -36,7 +36,7 @@ def get_file_content(file_path):
 
 
 def should_ignore(path, name, settings):
-    if name.startswith(".") or name in settings.get("ingore_paths", []):
+    if name.startswith(".") or name in settings.get("ignore_paths", []):
         # ignore basado en .gitignore -- FUERA DE ALCANCE
         return True
     if not os.path.isdir(path) and name.split(".")[-1] not in settings.get(

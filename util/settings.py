@@ -2,7 +2,7 @@ import json
 import os
 from dotenv import load_dotenv
 
-from .repo_reader import get_file_content
+from .file_reader import get_file_content
 
 
 def load_settings():

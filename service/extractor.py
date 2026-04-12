@@ -1,6 +1,6 @@
 import logging
 
-from util import repo_reader
+from util import file_reader
 from service.git_service import GitService
 
 
@@ -15,7 +15,7 @@ class Extractor:
         estructura del proyecto y metadatos de Git.
         """
         logging.debug("Getting project structure")
-        project_structure = repo_reader.get_project_structure(
+        project_structure = file_reader.get_project_structure(
             self.settings, self.settings.get("repo_dir", "./")
         )
 
