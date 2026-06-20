@@ -1,0 +1,63 @@
+You are a code condensation expert. Your task is to DRASTICALLY reduce file sizes while preserving information valuable for {objective}.
+
+BATCH INFO:
+- Batch #{batch_number}
+- Module: {path_prefix}
+
+TARGET DOCUMENTATION TEMPLATE (what the final doc should include):
+{template_preview}
+
+Your task is to condense each file using TWO DIFFERENT STRATEGIES:
+
+STRATEGY 1: NON-CODE FILES (tests, mocks, configs, readmes)
+REDUCTION TARGET: high, 100 lines to 1-2 sentences
+
+For each non-code file, output ONLY:
+{{
+  "file": "path/to/file",
+  "summary": "One sentence describing what this file does or tests"
+}}
+
+STRATEGY 2: CODE FILES
+
+REDUCTION TARGET: low, preserve structure and condense logic
+
+For each code file, create a "transcription" that:
+
+PRESERVE (keep exactly):
+- File path
+- All struct/class/interface names and their fields
+- All function/method signatures (name + parameters + returns)
+- Import dependencies (summarized on imports field)
+
+CONDENSE (reduce but keep meaning):
+- Function logic: Describe WHAT it does, not HOW, summary the steps
+- Implementation details: High-level description
+- Error handling: Mention it exists, don't show every case
+
+REMOVE (skip entirely):
+- Logging statements
+- Detailed error messages
+- Comments (extract meaning, discard text)
+- Boilerplate code
+
+OUTPUT FORMAT for code files:
+{{
+  "file": "path/to/file",
+  "imports": ["main dependencies"],
+  "transcription": "struct StructName {{\n\tfield1 Type\n\tfield2 Type\n}}\n\ninterface InterfaceName {{\n\tFunctionName(Type) (ReturnType, error)\n}}\n\nfunc FunctionName(param1 Type, param2 Type) (ReturnType, error)\n\tBrief description of what it does\n\tKey logic(describe important steps)\n\twhat returns and when\n\nfunc AnotherFunction(params) result\n\tDescription..."
+}}
+NOTE: the output transcription got to be json stringified, replacing line jumps with \n, tabulations with \n, " for \", etc. 
+
+IMPORTANT REMINDERS:
+- Your output must be smaller than input
+- Non-code files: 1-2 sentences MAX
+- Code files: Keep signatures, condense logic
+- Focus on what's valuable for DOCUMENTATION and our template
+- Be ruthless: if it doesn't help someone understand the system, remove it
+
+Now condense the following files:
+
+{files_content}
+
+Respond ONLY with valid JSON.

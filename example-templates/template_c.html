@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[Project Name] — Technical Documentation</title>
+    <link rel="stylesheet" href="template_c_styles.css" />
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════════════
+     SIDEBAR NAVIGATION
+     The LLM should fill in the section names as anchors.
+     ═══════════════════════════════════════════════ -->
+    <nav>
+        <p class="nav-title">Contents</p>
+        <ul>
+            <li class="section"><a href="#overview">Overview</a></li>
+            <li class="section"><a href="#architecture">Architecture</a></li>
+            <li class="sub"><a href="#arch-pattern">Pattern</a></li>
+            <li class="sub"><a href="#arch-layers">Layers</a></li>
+            <li class="sub"><a href="#arch-flow">Request Flow</a></li>
+            <li class="sub"><a href="#arch-dirs">Directory Structure</a></li>
+            <li class="section"><a href="#modules">Modules</a></li>
+            <li class="section"><a href="#data-model">Data Model</a></li>
+            <li class="section"><a href="#api">API Reference</a></li>
+            <li class="sub"><a href="#api-auth">Auth & Authorization</a></li>
+            <li class="sub"><a href="#api-endpoints">Endpoints</a></li>
+            <li class="section"><a href="#integrations">Integrations</a></li>
+            <li class="section"><a href="#errors">Error Handling</a></li>
+            <li class="section"><a href="#glossary">Glossary</a></li>
+        </ul>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════ -->
+    <main>
+
+        <!-- ── HEADER ── -->
+        <header class="doc-header">
+            <h1>[Project Name]</h1>
+            <p class="tagline">One-sentence tagline: what the system does and for whom.</p>
+            <div class="meta-badges">
+                <span class="badge">📦 Repository: [name / URL]</span>
+                <span class="badge">⚙️ Stack: [language · framework · database]</span>
+                <span class="badge">🏷️ Version: [last tag or inferred]</span>
+            </div>
+        </header>
+
+        <!-- ── OVERVIEW ── -->
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>Two to four paragraphs covering what problem this system solves and in what domain, what kind of
+                application it is and its main capabilities beyond basic CRUD, and who consumes it and how.</p>
+        </section>
+
+        <!-- ── ARCHITECTURE ── -->
+        <section id="architecture">
+            <h2>Architecture</h2>
+
+            <h3 id="arch-pattern">Architectural Pattern</h3>
+            <p>Name and describe the architectural pattern used (MVC, Clean Architecture, Hexagonal, layered, etc.).
+                Explain how it shapes the codebase structure and why it is appropriate for this system. Use the
+                terminology of the identified pattern consistently throughout the document (e.g. handler, middleware,
+                repository, use case, controller, service).</p>
+
+            <h3 id="arch-layers">Layer Overview</h3>
+            <p>For each layer or major structural group, one sentence describing its responsibility and its position in
+                the dependency chain.</p>
+            <ul>
+                <li><strong>[Layer name]:</strong> Responsibility and what it depends on.</li>
+                <li><strong>[Layer name]:</strong> Responsibility and what it depends on.</li>
+            </ul>
+
+            <h3 id="arch-flow">Request Flow</h3>
+            <p>Describe how a typical request travels through the system from entry point to response, naming the
+                concrete components involved at each step.</p>
+
+            <!-- The LLM should render each step as a flow-step pill -->
+            <div class="flow">
+                <span class="flow-step">Router</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Middleware</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Controller</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Service</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Repository</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Response</span>
+            </div>
+
+            <div class="note">Replace each pill above with the actual component names from the repository. Add or remove
+                steps as needed to match the real flow.</div>
+
+            <h3 id="arch-dirs">Directory Structure</h3>
+            <p>Annotated overview of the top-level directory structure. Reference actual folder names from the
+                repository.</p>
+            <div class="tree">
+                [project-root]/<br>
+                ├── [folder]/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tree-comment"># What lives here and
+                    why</span><br>
+                ├── [folder]/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tree-comment"># What lives here and
+                    why</span><br>
+                └── [file]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="tree-comment"># What this file
+                    configures</span>
+            </div>
+        </section>
+
+        <!-- ── MODULES ── -->
+        <section id="modules">
+            <h2>Modules</h2>
+            <p>For each module or layer, repeat the card block below. Use the terminology of the architectural pattern
+                identified above.</p>
+
+            <!-- Repeat this card for each module -->
+            <div class="card">
+                <div class="card-title">[Module Name]</div>
+                <p><strong>Role:</strong> One sentence on the responsibility of this module within the system.</p>
+
+                <h4>Responsibilities</h4>
+                <ul>
+                    <li>What it does (concrete actions, not vague descriptions).</li>
+                    <li>What decisions it makes or delegates.</li>
+                    <li>What it must not do (boundary definition).</li>
+                </ul>
+
+                <h4>Dependencies</h4>
+                <ul>
+                    <li>Modules or services it depends on.</li>
+                    <li>Modules or services that depend on it.</li>
+                </ul>
+
+                <h4>Key Components</h4>
+
+                <!-- Repeat this inner card for each component -->
+                <div class="card" style="margin-top:0.75rem;">
+                    <div class="card-title"><code>filename.ext</code> ComponentName</div>
+                    <ul>
+                        <li><strong>What it does:</strong> Concrete description of the actions this component performs.
+                        </li>
+                        <li><strong>Why it exists:</strong> The design rationale — what problem it solves or what
+                            responsibility it isolates.</li>
+                        <li><strong>Input:</strong> What it receives (type, structure).</li>
+                        <li><strong>Output:</strong> What it returns or produces.</li>
+                        <li><strong>Key functions / methods:</strong>
+                            <ul>
+                                <li><code>functionName(params)</code> — what it does.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Notes:</strong> Any relevant behavior, edge cases, or design decisions worth
+                            highlighting.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── DATA MODEL ── -->
+        <section id="data-model">
+            <h2>Data Model</h2>
+
+            <h3>Entities</h3>
+            <p>For each entity, list its key fields and their purpose. Focus on fields that carry business meaning, not
+                boilerplate (id, timestamps). Reference the source file where the entity is defined.</p>
+
+            <!-- Repeat this block for each entity -->
+            <div class="card">
+                <div class="card-title">[Entity Name] — <code>path/to/model/file.ext</code></div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>[field]</code></td>
+                                <td>[type]</td>
+                                <td>What it represents and any constraints.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>Relationships:</strong> Describe how this entity relates to others (one-to-many, belongs-to,
+                    etc.).</p>
+
+                <p><strong>Example:</strong></p>
+                <pre><code>{
+  "field": "example value matching the real model"
+}</code></pre>
+            </div>
+
+            <h3>Entity Relationship Summary</h3>
+            <p>Narrative description of how the main entities relate to each other and what the data model represents as
+                a whole.</p>
+        </section>
+
+        <!-- ── API REFERENCE ── -->
+        <section id="api">
+            <h2>API Reference</h2>
+
+            <h3 id="api-auth">Authentication &amp; Authorization</h3>
+            <ul>
+                <li><strong>Mechanism:</strong> How authentication works (JWT, session, OAuth, API key, etc.).</li>
+                <li><strong>How to authenticate:</strong> Step-by-step for obtaining and using credentials.</li>
+                <li><strong>Roles and permissions:</strong> What roles exist and what each one can access.</li>
+            </ul>
+            <pre><code>// Example: Authorization header
+{
+  "Authorization": "Bearer &lt;token&gt;"
+}</code></pre>
+
+            <h3 id="api-endpoints">Endpoints</h3>
+            <p>For each logical group of endpoints, repeat the block below. Reference the router or controller file
+                where these routes are defined.</p>
+
+            <!-- Repeat this group block for each resource -->
+            <h4>[Resource or Feature Group] — <code>path/to/router/file.ext</code></h4>
+            <p>Brief description of what this group of endpoints manages.</p>
+
+            <!-- Repeat this endpoint block for each endpoint -->
+            <div class="endpoint-block">
+                <div class="endpoint-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/path/to/endpoint</span>
+                </div>
+                <div class="endpoint-body">
+                    <p>Description of what this endpoint does and what it returns.</p>
+                    <ul>
+                        <li><strong>Auth required:</strong> Yes / No — [role required if applicable]</li>
+                        <li><strong>Path params:</strong> <code>[param]</code> — description</li>
+                        <li><strong>Query params:</strong> <code>[param]</code> — description, default value</li>
+                    </ul>
+                    <p><strong>Request body:</strong></p>
+                    <pre><code>{
+  "field": "type — description"
+}</code></pre>
+                    <p><strong>Success response</strong> <code>200</code>:</p>
+                    <pre><code>{
+  "field": "example value"
+}</code></pre>
+                    <p><strong>Error responses:</strong> <code>[status]</code> — when this happens.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ── EXTERNAL INTEGRATIONS ── -->
+        <section id="integrations">
+            <h2>External Integrations</h2>
+            <p>For each external dependency, describe what it is, why the system uses it, and how it interacts with it.
+                Reference the file or module that implements the integration.</p>
+
+            <!-- Repeat this card for each integration -->
+            <div class="card">
+                <div class="card-title">[Integration Name] — <code>path/to/integration/file.ext</code></div>
+                <ul>
+                    <li><strong>Type:</strong> Database / Third-party API / Cloud service / Message broker / etc.</li>
+                    <li><strong>Purpose:</strong> What the system uses it for.</li>
+                    <li><strong>Interaction:</strong> How the system communicates with it (SDK, HTTP, ORM, etc.).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ── ERROR HANDLING ── -->
+        <section id="errors">
+            <h2>Error Handling &amp; Validations</h2>
+            <p>Describe the general approach to error handling: where errors are caught, how they are formatted in
+                responses, and what validation strategy is used for incoming data. Reference the middleware or utility
+                file responsible if one exists.</p>
+        </section>
+
+        <!-- ── GLOSSARY ── -->
+        <section id="glossary">
+            <h2>Glossary</h2>
+            <p>Domain-specific or project-specific terms that appear in the codebase or this document.</p>
+            <dl class="glossary">
+                <dt>[Term]</dt>
+                <dd>What it means in the context of this system.</dd>
+            </dl>
+        </section>
+
+    </main>
+</body>
+
+</html>

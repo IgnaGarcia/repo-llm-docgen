@@ -1,0 +1,20 @@
+{
+    "repo_dir": "path/to/your/repo",
+    "base_branch": "main",
+    "ignore_paths": [".github", "config", ".gitignore"],
+    "code_extensions": ["go", "py", "java"],
+    "output_language": "Spanish",
+    "output_path": "./out",
+    "output_extension": "html",
+    "template_path": "./templates/template.html",
+    "rn_template_path": "./templates/rn_template.md",
+    "debug": false,
+    "agents": {
+        "condenser": {
+            "model": "gemini-3.1-pro-preview"
+        },
+        "documenter": {
+            "model": "gemini-3-flash-preview"
+        }
+    }
+}
