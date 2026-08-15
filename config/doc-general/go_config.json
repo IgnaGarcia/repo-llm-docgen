@@ -5,16 +5,16 @@
     "code_extensions": ["go"],
     "output_language": "Spanish",
     "output_path": "./out/doc-general/go",
-    "output_extension": "html",
-    "template_path": "./templates/template.html",
-    "rn_template_path": "./templates/rn_template.md",
+    "output_extension": "md",
+    "template_path": "./example-templates/template_a.md",
+    "rn_template_path": "./example-templates/rn_template_a.md",
     "debug": false,
     "agents": {
         "condenser": {
-            "model": "gemini-3.1-pro-preview"
+            "model": "gemini-3.6-flash"
         },
         "documenter": {
-            "model": "gemini-3-flash-preview"
+            "model": "gemini-3.7-flash"
         }
     }
 }
