@@ -1,13 +1,13 @@
 {
     "repo_dir": "D:/repos/notes/tf-repos/js_Abdelkader_eCommerce-Backend",
     "base_branch": "base-eval",
-    "ignore_paths": [".github", ".gitignore"],
-    "code_extensions": ["js"],
+    "ignore_paths": [".github", ".gitignore", "package-lock.json"],
+    "code_extensions": ["js", "json", "Dockerfile"],
     "output_language": "Spanish",
-    "output_path": "./out/js",
-    "output_extension": "html",
-    "template_path": "./templates/template.html",
-    "rn_template_path": "./templates/rn_template.md",
+    "output_path": "./out/rn_js",
+    "output_extension": "md",
+    "template_path": "./templates/template.md",
+    "rn_template_path": "./example-templates/rn_template_a.md",
     "debug": false,
     "agents": {
         "condenser": {
