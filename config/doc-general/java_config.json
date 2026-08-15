@@ -1,7 +1,7 @@
 {
     "repo_dir": "D:/repos/notes/tf-repos/java_asohyannick_spring-hotel-management-system",
     "base_branch": "base-eval",
-    "ignore_paths": [".github", "config", ".gitignore"],
+    "ignore_paths": [".github", ".gitignore"],
     "code_extensions": ["java"],
     "output_language": "Spanish",
     "output_path": "./out/doc-general/java",

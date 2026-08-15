@@ -1,7 +1,7 @@
 {
     "repo_dir": "D:/repos/notes/tf-repos/js_Abdelkader_eCommerce-Backend",
     "base_branch": "base-eval",
-    "ignore_paths": [".github", "config", ".gitignore"],
+    "ignore_paths": [".github", ".gitignore"],
     "code_extensions": ["js"],
     "output_language": "Spanish",
     "output_path": "./out/js",

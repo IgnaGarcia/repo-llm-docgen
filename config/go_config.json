@@ -1,7 +1,7 @@
 {
     "repo_dir": "D:/repos/notes/tf-repos/go_naeemaei_golang-clean-web-api",
     "base_branch": "base-eval",
-    "ignore_paths": [".github", "config", ".gitignore"],
+    "ignore_paths": [".github", ".gitignore"],
     "code_extensions": ["go"],
     "output_language": "Spanish",
     "output_path": "./out/go",
