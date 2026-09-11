@@ -29,6 +29,7 @@ PRESERVE (keep exactly):
 - All struct/class/interface names and their fields
 - All function/method signatures (name + parameters + returns)
 - Import dependencies (summarized on imports field)
+- Every decorator/annotation that adds behavior, routing, or access control — write it verbatim directly above the signature it decorates, including its arguments (route/path strings, HTTP verb, roles/permissions, event names, cron expressions, etc.). Examples: Java/Spring `@GetMapping("/x")`, `@PostMapping`, `@RequestMapping("/prefix")`, `@PreAuthorize("hasRole('ADMIN')")`, `@Secured`, `@Transactional`; TypeScript/Nest `@Controller('prefix')`, `@Get`, `@Post`, `@UseGuards(...)`; Python `@app.route(...)`, `@login_required`; Go struct tags for routes. If a class/controller itself carries a base-path or role annotation, keep it on the class line too — the documenter needs it to build full routes and know group-level auth.
 
 CONDENSE (reduce but keep meaning):
 - Function logic: Describe WHAT it does, not HOW, summary the steps
@@ -39,13 +40,13 @@ REMOVE (skip entirely):
 - Logging statements
 - Detailed error messages
 - Comments (extract meaning, discard text)
-- Boilerplate code
+- Boilerplate code (but NEVER treat decorators/annotations as boilerplate — they are functional metadata, not noise, and must be preserved as instructed above)
 
 OUTPUT FORMAT for code files:
 {{
   "file": "path/to/file",
   "imports": ["main dependencies"],
-  "transcription": "struct StructName {{\n\tfield1 Type\n\tfield2 Type\n}}\n\ninterface InterfaceName {{\n\tFunctionName(Type) (ReturnType, error)\n}}\n\nfunc FunctionName(param1 Type, param2 Type) (ReturnType, error)\n\tBrief description of what it does\n\tKey logic(describe important steps)\n\twhat returns and when\n\nfunc AnotherFunction(params) result\n\tDescription..."
+  "transcription": "struct StructName {{\n\tfield1 Type\n\tfield2 Type\n}}\n\ninterface InterfaceName {{\n\tFunctionName(Type) (ReturnType, error)\n}}\n\nfunc FunctionName(param1 Type, param2 Type) (ReturnType, error)\n\tBrief description of what it does\n\tKey logic(describe important steps)\n\twhat returns and when\n\nfunc AnotherFunction(params) result\n\tDescription...\n\n@RestController\n@RequestMapping(\"/api/v1/bookings\")\nclass BookingController {{\n\t@PostMapping(\"/create-booking\")\n\t@PreAuthorize(\"hasRole('CUSTOMER')\")\n\tResponseEntity createBooking(BookingRequestDto dto)\n\t\tCreates a new booking request\n}}"
 }}
 NOTE: the output transcription got to be json stringified, replacing line jumps with \n, tabulations with \n, " for \", etc. 
 

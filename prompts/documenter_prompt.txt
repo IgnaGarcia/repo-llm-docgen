@@ -40,7 +40,10 @@ IMPORTANT:
 - Focus on FUNCTIONAL perspective - how things work and interact
 - Use the condensed "transcriptions" to understand system structure
 - Don't invent information - only use what's in the condensed context
-- Prioritize clarity and usefulness over completeness
+- Balance PRECISION, COMPLETENESS and CLARITY: every module, entity and endpoint present in the condensed context must be covered — at minimum in an inventory list/table, even if only a subset gets a fully detailed writeup. Do not skip items for the sake of brevity or "usefulness" — an omitted item is a defect, not a simplification.
+- Completeness applies WITHIN each item too, not just across items: when documenting an entity/struct/class, list EVERY field present in its condensed transcription — not just the ones that look "important" or "representative". The same applies to function parameters and to decorators/annotations found on a route (all of them, not a subset). Truncating a field or annotation list is a defect, not a simplification.
+- When documenting a route/endpoint, build the full path by combining the group/router prefix with each route's own sub-path, and check whether authentication/authorization is applied at the group level (not just per-route) before stating "no auth required".
+- If CONDENSED CONTEXT is empty, or any entry contains an "error" field instead of real content, DO NOT generate documentation from your own knowledge, training data, or assumptions about what a typical project like this looks like. Instead, output only a short notice stating that documentation could not be generated because the condensed context is missing or broken, naming which parts failed.
 - Your audience is technically savvy developers and beginners
 
 Generate the documentation now, following the template structure exactly:

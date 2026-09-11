@@ -46,7 +46,17 @@ Two to four paragraphs covering what problem this system solves and in what doma
 
 ## Modules
 
-For each module, fill in the summary table and the component table below.
+### Module Inventory
+
+List every module or layer identified in the codebase, even ones only briefly covered below. Every row here must have a corresponding block in the detail section that follows.
+
+| Module | Role |
+| ------ | ---- |
+| [Module Name] | One-line responsibility |
+
+### Module Detail
+
+For each module listed above, fill in the summary table and the component table below.
 
 ### [Module Name]
 
@@ -77,7 +87,7 @@ For each module, fill in the summary table and the component table below.
 
 ### Entity Detail
 
-For each entity, list its fields and include a JSON example.
+Every entity listed in Entity Summary above must have a corresponding block here — do not omit any, even if some fields must be abbreviated for space. For each entity, list its fields and include a JSON example.
 
 #### [Entity Name] — `path/to/model/file.ext`
 
@@ -114,9 +124,17 @@ Narrative description of how the main entities relate to each other and what the
 }
 ```
 
+### Endpoint Inventory
+
+List every endpoint found in the router/controller files, even ones not detailed in the OpenAPI spec below. Build the full path by combining the class-level route prefix (e.g. a Spring controller's `@RequestMapping`) with each method's own mapping, and check whether security is applied at the controller/group level (e.g. `@PreAuthorize`, a security config class) rather than assuming it per-method.
+
+| Method | Path | Controller | Auth |
+| ------ | ---- | ---------- | ---- |
+| [METHOD] | `/path/to/endpoint` | `ControllerName` | Yes/No — role |
+
 ### OpenAPI Specification
 
-Complete OpenAPI 3.0 specification inferred from the codebase. Do not invent endpoints — only document routes found in the router and controller files.
+Complete OpenAPI 3.0 specification inferred from the codebase — it must include every endpoint listed in the Endpoint Inventory above, not just a representative sample. Do not invent endpoints — only document routes found in the router and controller files.
 
 ```yaml
 openapi: 3.0.3

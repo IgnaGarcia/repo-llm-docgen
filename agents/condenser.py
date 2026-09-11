@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from typing import List, Dict, Any
 from service.llm_service import LlmService
 
@@ -11,7 +12,9 @@ class Condenser:
 
         self.model_name = agent_config.get("model", "gemini-2.5-flash")
         self.llm = LlmService(
-            api_key=settings["model_api_key"], model_name=self.model_name
+            api_key=settings["model_api_key"],
+            model_name=self.model_name,
+            thinking_level=agent_config.get("thinking_level"),
         )
 
         with open("./prompts/condenser_prompt.txt", "r", encoding="utf-8") as f:
@@ -56,6 +59,7 @@ class Condenser:
 
         if self.debug:
             debug_path = f"{self.settings.get('output_path', './out')}/tmp/prompt"
+            os.makedirs(debug_path, exist_ok=True)
             with open(
                 f"{debug_path}/{batch_number}_condenser_prompt.txt",
                 "w",
@@ -77,6 +81,7 @@ class Condenser:
 
             if self.debug:
                 debug_path = f"{self.settings.get('output_path', './out')}/tmp/response"
+                os.makedirs(debug_path, exist_ok=True)
                 with open(
                     f"{debug_path}/{batch_number}_condenser_response.txt",
                     "w",
@@ -84,7 +89,7 @@ class Condenser:
                 ) as f:
                     f.write(response)
 
-            result = json.loads(response)
+            result = json.loads(response, strict=False)
             return result
 
         except json.JSONDecodeError as e:

@@ -114,8 +114,30 @@
         <!-- ── MODULES ── -->
         <section id="modules">
             <h2>Modules</h2>
-            <p>For each module or layer, repeat the card block below. Use the terminology of the architectural pattern
-                identified above.</p>
+
+            <h3>Module Inventory</h3>
+            <p>List every module or layer identified in the codebase, even ones only briefly covered below. Every row
+                here must have a corresponding card in the detail section that follows.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Module</th>
+                            <th>Role (one line)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[Module Name]</td>
+                            <td>One-line responsibility</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Module Detail</h3>
+            <p>For each module or layer listed above, repeat the card block below. Use the terminology of the
+                architectural pattern identified above.</p>
 
             <!-- Repeat this card for each module -->
             <div class="card">
@@ -164,9 +186,32 @@
         <section id="data-model">
             <h2>Data Model</h2>
 
+            <h3>Entity Summary</h3>
+            <p>List every entity/model found in the codebase, even ones not expanded in detail below. Every row here
+                must have a corresponding card in Entities below.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Entity</th>
+                            <th>File</th>
+                            <th>Key fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[EntityName]</td>
+                            <td><code>path/to/file.ext</code></td>
+                            <td>field1, field2, field3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h3>Entities</h3>
-            <p>For each entity, list its key fields and their purpose. Focus on fields that carry business meaning, not
-                boilerplate (id, timestamps). Reference the source file where the entity is defined.</p>
+            <p>For each entity listed above, list its key fields and their purpose. Focus on fields that carry
+                business meaning, not boilerplate (id, timestamps). Reference the source file where the entity is
+                defined.</p>
 
             <!-- Repeat this block for each entity -->
             <div class="card">
@@ -220,9 +265,35 @@
   "Authorization": "Bearer &lt;token&gt;"
 }</code></pre>
 
+            <h3>Endpoint Inventory</h3>
+            <p>List every endpoint found in the router/controller files, even ones not detailed below. Build the full
+                path by combining the route-group prefix (if routes are mounted under a common path) with each
+                route's own sub-path, and mark whether authorization is enforced at the route-group level rather
+                than assuming it is per-route.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Path</th>
+                            <th>Group / File</th>
+                            <th>Auth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[METHOD]</td>
+                            <td><code>/path/to/endpoint</code></td>
+                            <td><code>path/to/router/file.ext</code></td>
+                            <td>Yes/No — role</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h3 id="api-endpoints">Endpoints</h3>
-            <p>For each logical group of endpoints, repeat the block below. Reference the router or controller file
-                where these routes are defined.</p>
+            <p>For each logical group of endpoints listed above, repeat the block below. Reference the router or
+                controller file where these routes are defined.</p>
 
             <!-- Repeat this group block for each resource -->
             <h4>[Resource or Feature Group] — <code>path/to/router/file.ext</code></h4>

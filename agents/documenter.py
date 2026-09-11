@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from service import LlmService
 
 
@@ -12,7 +13,10 @@ class Documenter:
         self.model_name = agent_config.get("model", "gemini-2.5-flash")
 
         self.llm = LlmService(
-            api_key=settings["model_api_key"], model_name=self.model_name
+            api_key=settings["model_api_key"],
+            model_name=self.model_name,
+            thinking_level=agent_config.get("thinking_level"),
+            max_retries=1,
         )
 
         with open("./prompts/documenter_prompt.txt", "r", encoding="utf-8") as f:
@@ -40,6 +44,7 @@ class Documenter:
 
         if self.debug:
             debug_path = f"{self.settings.get('output_path', './out')}/tmp/prompt"
+            os.makedirs(debug_path, exist_ok=True)
             with open(
                 f"{debug_path}/documenter_prompt.txt", "w", encoding="utf-8"
             ) as f:
@@ -75,6 +80,7 @@ class Documenter:
 
         if self.debug:
             debug_path = f"{self.settings.get('output_path', './out')}/tmp/prompt"
+            os.makedirs(debug_path, exist_ok=True)
             with open(
                 f"{debug_path}/documenter_prompt.txt", "w", encoding="utf-8"
             ) as f:

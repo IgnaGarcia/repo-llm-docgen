@@ -52,7 +52,17 @@ Annotated overview of the top-level directory structure. For each significant fo
 
 ## Modules
 
-For each module or layer, repeat the block below. Use the terminology of the architectural pattern identified above.
+### Module Inventory
+
+List every module or layer identified in the codebase, even ones only briefly covered below. Every row here must have a corresponding block in the detail section that follows.
+
+| Module | Role (one line) |
+| ------ | ---------------- |
+| [Module Name] | One-line responsibility |
+
+### Module Detail
+
+For each module or layer listed above, repeat the block below. Use the terminology of the architectural pattern identified above.
 
 ### [Module Name]
 
@@ -85,9 +95,17 @@ For each module or layer, repeat the block below. Use the terminology of the arc
 
 ## Data Model
 
+### Entity Summary
+
+List every entity/model found in the codebase, even ones not expanded in detail below. Every row here must have a corresponding block in Entities below.
+
+| Entity | File | Key fields |
+| ------ | ---- | ---------- |
+| [EntityName] | `path/to/file.ext` | field1, field2, field3 |
+
 ### Entities
 
-For each entity, list its key fields and their purpose. Focus on fields that carry business meaning, not boilerplate (id, timestamps). Reference the source file where the entity is defined.
+For each entity listed above, list its key fields and their purpose. Focus on fields that carry business meaning, not boilerplate (id, timestamps). Reference the source file where the entity is defined.
 
 #### [Entity Name] — [`path/to/model/file.ext`]
 
@@ -128,9 +146,17 @@ Narrative description of how the main entities relate to each other and what the
 }
 ```
 
+### Endpoint Inventory
+
+List every endpoint found in the router/controller files, even ones not detailed below. Build the full path by combining the route-group prefix (if routes are mounted under a common path) with each route's own sub-path, and mark whether authorization is enforced at the route-group level rather than assuming it is per-route.
+
+| Method | Path | Group / File | Auth |
+| ------ | ---- | ------------- | ---- |
+| [METHOD] | `/path/to/endpoint` | `path/to/router/file.ext` | Yes/No — role |
+
 ### Endpoints
 
-For each logical group of endpoints, repeat the block below. Reference the router or controller file where these routes are defined.
+For each logical group of endpoints listed above, repeat the block below. Reference the router or controller file where these routes are defined.
 
 #### [Resource or Feature Group] — [`path/to/router/file.ext`]
 

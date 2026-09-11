@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 from .file_reader import get_file_content
 
 
-def load_settings():
+def load_settings(config_path="./config/config.json"):
     load_dotenv("./config/.env")
 
-    with open("./config/config.json", "r") as file:
+    with open(config_path, "r") as file:
         content = file.read()
         json_content = json.loads(content)
 
