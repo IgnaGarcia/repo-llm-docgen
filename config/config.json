@@ -1,20 +1,20 @@
 {
-    "repo_dir": "D:/repos/notes/tf-repos/go_naeemaei_golang-clean-web-api",
-    "base_branch": "base-eval",
+    "repo_dir": "/path/to/target/repo",
+    "base_branch": "main",
     "ignore_paths": [".github", ".gitignore"],
-    "code_extensions": ["go"],
+    "code_extensions": ["go", "js", "java"],
     "output_language": "Spanish",
-    "output_path": "./out/rn_go",
+    "output_path": "./out",
     "output_extension": "md",
-    "template_path": "./example-templates/template_b.md",
-    "rn_template_path": "./example-templates/rn_template_b.md",
+    "template_path": "./example-templates/template_a.md",
+    "rn_template_path": "./example-templates/rn_template_a.md",
     "debug": false,
     "agents": {
         "condenser": {
-            "model": "gemini-3.6-flash"
+            "model": "gemini-2.5-flash"
         },
         "documenter": {
-            "model": "gemini-3.7-flash"
+            "model": "gemini-2.5-pro"
         }
     }
 }
